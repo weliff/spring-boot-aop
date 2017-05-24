@@ -13,6 +13,10 @@ public class Application implements CommandLineRunner {
     private ClientesRepository repository;
     
     public void run(String... arg0) throws Exception {
+        
+        try {
+            repository.listar();
+        } catch (RuntimeException e) { }
         repository.salvar(new Object());
     }
 
