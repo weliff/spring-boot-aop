@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProfiladorAdvice {
     
-    @Around("execution(* br.com.aop.*.*(..))")
+    @Around("execution(* br.com.aop.repository.*.*(java.lang.Object))")
     public Object profilar(ProceedingJoinPoint joinPoint) throws Throwable {
         long tempoInicio = System.currentTimeMillis();
         
