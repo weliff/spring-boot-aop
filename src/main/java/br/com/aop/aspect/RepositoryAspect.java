@@ -1,7 +1,10 @@
 package br.com.aop.aspect;
 
+import java.util.Arrays;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,14 +15,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class RepositoryAspect {
     
-    @Around("execution(* br.com.aop.repository.*.*(java.lang.Object))")
+    @Around("execution(* br.com.aop.repository.*.*(java.lang.Object)) || execution(* br.com.aop.repository.*.*(..))")
     public Object profilarAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
         long tempoInicio = System.currentTimeMillis();
         
         Object resultado = joinPoint.proceed();
         
+        String nomeMetodo = joinPoint.getSignature().getName();
+        String argumentos = Arrays.toString(joinPoint.getArgs());
+        
         long tempoFim = System.currentTimeMillis();
-        System.out.println("Tempo gasto para executar = " + (tempoFim - tempoInicio) + "ms");
+        System.out.println(String.format("Tempo gasto para executar o método '%s' com os parametros '%s' = %d ms", nomeMetodo, argumentos, tempoFim - tempoInicio));
         
         return resultado;
     }
