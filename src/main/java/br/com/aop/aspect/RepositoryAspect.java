@@ -1,4 +1,4 @@
-package br.com.aop.advice;
+package br.com.aop.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class RepositoryAdvice {
+public class RepositoryAspect {
     
     @Around("execution(* br.com.aop.repository.*.*(java.lang.Object))")
-    public Object profilar(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object profilarAdvice(ProceedingJoinPoint joinPoint) throws Throwable {
         long tempoInicio = System.currentTimeMillis();
         
         Object resultado = joinPoint.proceed();
@@ -25,12 +25,12 @@ public class RepositoryAdvice {
     }
     
     @Before("execution(void br.com.aop.*.*.salvar(..))")
-    public void verificarParametro(JoinPoint joinPoint) {
+    public void verificarParametroAdvice(JoinPoint joinPoint) {
         System.out.println("parametro recebido >>> " + joinPoint.getArgs()[0]);
     }
 
     @AfterThrowing(pointcut="execution(* br.com.aop.*.*.listar())", throwing = "ex")
-    public void recuperarErro(RuntimeException ex) {
+    public void recuperarErroAdvice(RuntimeException ex) {
         System.out.println("lançou um erro");
     }
 }
