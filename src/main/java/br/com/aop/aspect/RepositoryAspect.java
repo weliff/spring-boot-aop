@@ -38,5 +38,6 @@ public class RepositoryAspect {
     @AfterThrowing(pointcut="execution(* br.com.aop.*.*.listar())", throwing = "ex")
     public void recuperarErroAdvice(RuntimeException ex) {
         System.out.println("lançou um erro");
+        throw new IllegalStateException("re-throw");
     }
 }

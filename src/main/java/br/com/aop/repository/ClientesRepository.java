@@ -8,7 +8,7 @@ public class ClientesRepository {
     
     public void salvar(Object obj) {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
         }
     }

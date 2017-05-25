@@ -16,7 +16,9 @@ public class Application implements CommandLineRunner {
         
         try {
             repository.listar();
-        } catch (RuntimeException e) { }
+        } catch (IllegalStateException e) { 
+            System.out.println("capturado a nova exeção do aspecto com a mensagem = " + e.getMessage());
+        }
         repository.salvar(new Object());
     }
 
